@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ritwickdey.liveserver",
+    "humao.rest-client",
+    "alexcvzz.vscode-sqlite"
+  ]
+}

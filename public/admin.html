@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIP Admin — Content &amp; Leads</title>
+<style>
+  :root { --ink:#1a1812; --forest:#2d5016; --forest-mid:#3d6b1f; --ochre:#c47c1a; --mist:#8a8070; --rule:#c8bfa8; --parchment:#f5f0e8; --parchment-dark:#ede5d4; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background: var(--parchment); color: var(--ink); }
+  header { padding: 1.25rem 2rem; border-bottom: 1px solid var(--rule); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; background: var(--parchment-dark); }
+  header h1 { font-size: 1.1rem; margin:0; }
+  header input { padding: 0.5rem 0.7rem; border:1px solid var(--rule); font-family: monospace; width: 260px; }
+  header button { padding: 0.5rem 1rem; border:none; background: var(--forest); color:#fff; cursor:pointer; }
+  header button:hover { background: var(--forest-mid); }
+  nav { display:flex; gap:0.5rem; padding: 1rem 2rem 0; flex-wrap:wrap; }
+  nav button { padding:0.5rem 1rem; border:1px solid var(--rule); background:#fff; cursor:pointer; font-size:0.85rem; }
+  nav button.active { background: var(--ink); color:#fff; border-color: var(--ink); }
+  main { padding: 1.5rem 2rem 4rem; }
+  section { display:none; }
+  section.active { display:block; }
+  table { width:100%; border-collapse: collapse; background:#fff; margin-bottom:1.5rem; font-size:0.85rem; }
+  th, td { border:1px solid var(--rule); padding:0.5rem 0.6rem; text-align:left; vertical-align: top; }
+  th { background: var(--parchment-dark); }
+  td.actions { white-space:nowrap; }
+  td.actions button { margin-right:0.3rem; padding:0.3rem 0.6rem; cursor:pointer; border:1px solid var(--rule); background:#fff; font-size:0.78rem; }
+  td.actions button.danger { border-color:#b23; color:#b23; }
+  form.add-form { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:0.6rem; background:#fff; border:1px solid var(--rule); padding:1rem; margin-bottom:1rem; }
+  form.add-form label { display:flex; flex-direction:column; font-size:0.75rem; color: var(--mist); gap:0.25rem; }
+  form.add-form input, form.add-form select, form.add-form textarea { padding:0.4rem; border:1px solid var(--rule); font-family: inherit; }
+  form.add-form .full { grid-column: 1 / -1; }
+  form.add-form button { grid-column: 1 / -1; justify-self:start; padding:0.5rem 1.2rem; background: var(--ochre); color:#fff; border:none; cursor:pointer; }
+  .status-msg { font-size:0.85rem; margin: 0.5rem 0; min-height:1.2em; }
+  .status-msg.error { color:#b23; }
+  .status-msg.ok { color: var(--forest); }
+  .hint { font-size:0.8rem; color: var(--mist); margin-bottom:1rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>TIP — Content &amp; Leads Admin</h1>
+  <div style="display:flex; gap:0.5rem; align-items:center;">
+    <input id="token" type="password" placeholder="x-admin-token">
+    <button id="save-token">Use Token</button>
+  </div>
+</header>
+
+<nav id="tabs">
+  <button data-tab="projects" class="active">Projects</button>
+  <button data-tab="partners">Partners</button>
+  <button data-tab="gallery">Gallery</button>
+  <button data-tab="tiers">Membership Tiers</button>
+  <button data-tab="leads">Leads</button>
+</nav>
+
+<main>
+  <p class="hint">This page talks directly to the <code>/api/*</code> endpoints on this same server. Enter your admin token once (from your <code>.env</code> file) — it's kept only in this browser's local storage.</p>
+  <p class="status-msg" id="status"></p>
+
+  <section id="tab-projects" class="active">
+    <h2>Projects</h2>
+    <form class="add-form" id="form-projects">
+      <label>Tag <input name="tag" required></label>
+      <label>Title <input name="title" required></label>
+      <label>Status
+        <select name="status" required>
+          <option>Active</option><option>Fundraising</option><option>Seeking Partners</option>
+        </select>
+      </label>
+      <label>Goal (KES) <input name="goal_kes" type="number" required></label>
+      <label>Raised (%) <input name="raised_pct" type="number" min="0" max="100" required></label>
+      <label>Sort order <input name="sort_order" type="number" value="0"></label>
+      <label class="full">Description <textarea name="description" required></textarea></label>
+      <label class="full">Image URL <input name="image_url" required></label>
+      <label class="full">Image alt text <input name="image_alt" required></label>
+      <button type="submit">Add Project</button>
+    </form>
+    <table id="table-projects"><thead><tr>
+      <th>#</th><th>Title</th><th>Tag</th><th>Status</th><th>Goal</th><th>Raised %</th><th>Order</th><th>Actions</th>
+    </tr></thead><tbody></tbody></table>
+  </section>
+
+  <section id="tab-partners">
+    <h2>Partners</h2>
+    <form class="add-form" id="form-partners">
+      <label>Name <input name="name" required></label>
+      <label>Type <input name="type" required></label>
+      <label>Sort order <input name="sort_order" type="number" value="0"></label>
+      <button type="submit">Add Partner</button>
+    </form>
+    <table id="table-partners"><thead><tr>
+      <th>#</th><th>Name</th><th>Type</th><th>Order</th><th>Actions</th>
+    </tr></thead><tbody></tbody></table>
+  </section>
+
+  <section id="tab-gallery">
+    <h2>Gallery</h2>
+    <form class="add-form" id="form-gallery">
+      <label class="full">Image URL <input name="image_url" required></label>
+      <label class="full">Alt text <input name="image_alt" required></label>
+      <label>Tall (spans 2 rows)
+        <select name="is_tall"><option value="0">No</option><option value="1">Yes</option></select>
+      </label>
+      <label>Sort order <input name="sort_order" type="number" value="0"></label>
+      <button type="submit">Add Image</button>
+    </form>
+    <table id="table-gallery"><thead><tr>
+      <th>#</th><th>Preview</th><th>Alt</th><th>Tall</th><th>Order</th><th>Actions</th>
+    </tr></thead><tbody></tbody></table>
+  </section>
+
+  <section id="tab-tiers">
+    <h2>Membership Tiers</h2>
+    <form class="add-form" id="form-tiers">
+      <label>Tier name <input name="tier" required></label>
+      <label>Fee <input name="fee" required></label>
+      <label>Period <input name="period" required></label>
+      <label>CTA label <input name="cta" required></label>
+      <label>Modal mode
+        <select name="modal_mode"><option>join</option><option>partner</option><option>sponsor</option><option>invite</option></select>
+      </label>
+      <label>Highlight
+        <select name="highlight"><option value="0">No</option><option value="1">Yes</option></select>
+      </label>
+      <label>Sort order <input name="sort_order" type="number" value="0"></label>
+      <label class="full">Perks (one per line) <textarea name="perks_text" rows="4"></textarea></label>
+      <button type="submit">Add Tier</button>
+    </form>
+    <table id="table-tiers"><thead><tr>
+      <th>#</th><th>Tier</th><th>Fee</th><th>Perks</th><th>Highlight</th><th>Order</th><th>Actions</th>
+    </tr></thead><tbody></tbody></table>
+  </section>
+
+  <section id="tab-leads">
+    <h2>Leads (Contact Form Submissions)</h2>
+    <p class="hint">Requires the admin token. Filter isn't built in — showing all, newest first.</p>
+    <table id="table-leads"><thead><tr>
+      <th>#</th><th>Mode</th><th>Name</th><th>Email</th><th>Org</th><th>Message</th><th>Status</th><th>Received</th><th>Actions</th>
+    </tr></thead><tbody></tbody></table>
+  </section>
+</main>
+
+<script>
+const API = '/api';
+let TOKEN = localStorage.getItem('tip_admin_token') || '';
+document.getElementById('token').value = TOKEN;
+
+function setStatus(msg, isError) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status-msg ' + (isError ? 'error' : 'ok');
+  if (msg) setTimeout(() => { el.textContent = ''; }, 4000);
+}
+
+document.getElementById('save-token').addEventListener('click', () => {
+  TOKEN = document.getElementById('token').value.trim();
+  localStorage.setItem('tip_admin_token', TOKEN);
+  setStatus('Token saved locally.');
+  loadAll();
+});
+
+async function api(path, opts = {}) {
+  const headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+  if (TOKEN) headers['x-admin-token'] = TOKEN;
+  const res = await fetch(API + path, Object.assign({}, opts, { headers }));
+  if (res.status === 204) return null;
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ('Request failed: ' + res.status));
+  return data;
+}
+
+// ---- tabs ----
+document.getElementById('tabs').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-tab]');
+  if (!btn) return;
+  document.querySelectorAll('#tabs button').forEach((b) => b.classList.remove('active'));
+  document.querySelectorAll('main section').forEach((s) => s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+});
+
+// ---- generic table renderer ----
+function money(n) { return 'KES ' + Number(n).toLocaleString(); }
+
+async function loadProjects() {
+  const rows = await api('/projects');
+  const tbody = document.querySelector('#table-projects tbody');
+  tbody.innerHTML = rows.map((r) => `
+    <tr>
+      <td>${r.id}</td><td>${r.title}</td><td>${r.tag}</td><td>${r.status}</td>
+      <td>${money(r.goal_kes)}</td><td>${r.raised_pct}%</td><td>${r.sort_order}</td>
+      <td class="actions">
+        <button onclick="quickEditPct(${r.id}, ${r.raised_pct})">Edit %</button>
+        <button class="danger" onclick="removeRow('projects', ${r.id}, loadProjects)">Delete</button>
+      </td>
+    </tr>`).join('');
+}
+
+async function quickEditPct(id, current) {
+  const val = prompt('New raised percentage (0-100):', current);
+  if (val === null) return;
+  try {
+    await api('/projects/' + id, { method: 'PUT', body: JSON.stringify({ raised_pct: Number(val) }) });
+    setStatus('Project updated.');
+    loadProjects();
+  } catch (err) { setStatus(err.message, true); }
+}
+
+async function loadPartners() {
+  const rows = await api('/partners');
+  document.querySelector('#table-partners tbody').innerHTML = rows.map((r) => `
+    <tr><td>${r.id}</td><td>${r.name}</td><td>${r.type}</td><td>${r.sort_order}</td>
+    <td class="actions"><button class="danger" onclick="removeRow('partners', ${r.id}, loadPartners)">Delete</button></td></tr>
+  `).join('');
+}
+
+async function loadGallery() {
+  const rows = await api('/gallery');
+  document.querySelector('#table-gallery tbody').innerHTML = rows.map((r) => `
+    <tr><td>${r.id}</td><td><img src="${r.image_url}" alt="" style="width:70px;height:50px;object-fit:cover;"></td>
+    <td>${r.image_alt}</td><td>${r.is_tall ? 'Yes' : 'No'}</td><td>${r.sort_order}</td>
+    <td class="actions"><button class="danger" onclick="removeRow('gallery', ${r.id}, loadGallery)">Delete</button></td></tr>
+  `).join('');
+}
+
+async function loadTiers() {
+  const rows = await api('/membership-tiers');
+  document.querySelector('#table-tiers tbody').innerHTML = rows.map((r) => `
+    <tr><td>${r.id}</td><td>${r.tier}</td><td>${r.fee}</td>
+    <td>${r.perks.join('; ')}</td><td>${r.highlight ? 'Yes' : 'No'}</td><td>${r.sort_order}</td>
+    <td class="actions"><button class="danger" onclick="removeRow('membership-tiers', ${r.id}, loadTiers)">Delete</button></td></tr>
+  `).join('');
+}
+
+async function loadLeads() {
+  if (!TOKEN) { document.querySelector('#table-leads tbody').innerHTML = '<tr><td colspan="9">Enter admin token above to view leads.</td></tr>'; return; }
+  try {
+    const rows = await api('/leads');
+    document.querySelector('#table-leads tbody').innerHTML = rows.map((r) => `
+      <tr><td>${r.id}</td><td>${r.mode}</td><td>${r.full_name}</td><td>${r.email}</td>
+      <td>${r.organisation || ''}</td><td>${(r.message || '').slice(0, 60)}</td>
+      <td>
+        <select onchange="updateLeadStatus(${r.id}, this.value)">
+          ${['new','contacted','closed'].map((s) => `<option value="${s}" ${s===r.status?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </td>
+      <td>${r.created_at}</td>
+      <td class="actions"><button class="danger" onclick="removeRow('leads', ${r.id}, loadLeads)">Delete</button></td></tr>
+    `).join('');
+  } catch (err) { setStatus(err.message, true); }
+}
+
+async function updateLeadStatus(id, status) {
+  try {
+    await api('/leads/' + id, { method: 'PUT', body: JSON.stringify({ status }) });
+    setStatus('Lead status updated.');
+  } catch (err) { setStatus(err.message, true); }
+}
+
+async function removeRow(resource, id, reload) {
+  if (!confirm('Delete this record? This cannot be undone.')) return;
+  try {
+    await api('/' + resource + '/' + id, { method: 'DELETE' });
+    setStatus('Deleted.');
+    reload();
+  } catch (err) { setStatus(err.message, true); }
+}
+
+// ---- add forms ----
+function formToObject(form, numberFields = []) {
+  const data = {};
+  new FormData(form).forEach((v, k) => { data[k] = numberFields.includes(k) ? Number(v) : v; });
+  return data;
+}
+
+document.getElementById('form-projects').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = formToObject(e.target, ['goal_kes', 'raised_pct', 'sort_order']);
+  try {
+    await api('/projects', { method: 'POST', body: JSON.stringify(data) });
+    setStatus('Project added.'); e.target.reset(); loadProjects();
+  } catch (err) { setStatus(err.message, true); }
+});
+
+document.getElementById('form-partners').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = formToObject(e.target, ['sort_order']);
+  try {
+    await api('/partners', { method: 'POST', body: JSON.stringify(data) });
+    setStatus('Partner added.'); e.target.reset(); loadPartners();
+  } catch (err) { setStatus(err.message, true); }
+});
+
+document.getElementById('form-gallery').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = formToObject(e.target, ['sort_order']);
+  data.is_tall = data.is_tall === '1' || data.is_tall === 1;
+  try {
+    await api('/gallery', { method: 'POST', body: JSON.stringify(data) });
+    setStatus('Image added.'); e.target.reset(); loadGallery();
+  } catch (err) { setStatus(err.message, true); }
+});
+
+document.getElementById('form-tiers').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = formToObject(e.target, ['sort_order']);
+  data.highlight = data.highlight === '1' || data.highlight === 1;
+  data.perks = (data.perks_text || '').split('\n').map((s) => s.trim()).filter(Boolean);
+  delete data.perks_text;
+  try {
+    await api('/membership-tiers', { method: 'POST', body: JSON.stringify(data) });
+    setStatus('Tier added.'); e.target.reset(); loadTiers();
+  } catch (err) { setStatus(err.message, true); }
+});
+
+function loadAll() {
+  loadProjects().catch((e) => setStatus(e.message, true));
+  loadPartners().catch((e) => setStatus(e.message, true));
+  loadGallery().catch((e) => setStatus(e.message, true));
+  loadTiers().catch((e) => setStatus(e.message, true));
+  loadLeads();
+}
+
+loadAll();
+</script>
+</body>
+</html>

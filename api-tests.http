@@ -1,0 +1,67 @@
+### Uses the "REST Client" VS Code extension — click "Send Request" above any block.
+@baseUrl = http://localhost:3000/api
+@token = change-me
+
+### Health check
+GET {{baseUrl}}/health
+
+### List projects
+GET {{baseUrl}}/projects
+
+### List partners
+GET {{baseUrl}}/partners
+
+### List gallery
+GET {{baseUrl}}/gallery
+
+### List membership tiers
+GET {{baseUrl}}/membership-tiers
+
+### List stats
+GET {{baseUrl}}/stats
+
+### Submit a lead (public — no token needed)
+POST {{baseUrl}}/leads
+Content-Type: application/json
+
+{
+  "mode": "join",
+  "full_name": "Test User",
+  "email": "test@example.com",
+  "organisation": "",
+  "message": "Testing from VS Code"
+}
+
+### List leads (admin)
+GET {{baseUrl}}/leads
+x-admin-token: {{token}}
+
+### Add a project (admin)
+POST {{baseUrl}}/projects
+Content-Type: application/json
+x-admin-token: {{token}}
+
+{
+  "tag": "Environment",
+  "title": "River Cleanup Drive",
+  "description": "Quarterly cleanups along the Motoine River.",
+  "status": "Fundraising",
+  "goal_kes": 200000,
+  "raised_pct": 0,
+  "image_url": "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=700&h=480&fit=crop&auto=format",
+  "image_alt": "Volunteers cleaning a riverbank",
+  "sort_order": 4
+}
+
+### Update raised_pct on project 1 (admin)
+PUT {{baseUrl}}/projects/1
+Content-Type: application/json
+x-admin-token: {{token}}
+
+{
+  "raised_pct": 70
+}
+
+### Delete project 5 (admin)
+DELETE {{baseUrl}}/projects/5
+x-admin-token: {{token}}

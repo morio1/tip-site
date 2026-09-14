@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Incubator Platform — Building a Greener Langata</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Work+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- ================= MODAL ================= -->
+    <div class="modal-overlay" id="modal-overlay">
+      <div class="modal-panel">
+        <button class="modal-close" id="modal-close">×</button>
+        <p class="modal-eyebrow">Get in touch</p>
+        <h3 class="modal-title" id="modal-title">Join The Incubator Platform</h3>
+        <p class="modal-desc" id="modal-desc">Become an Ordinary Member of TIP and help drive change in Langata
+          Sub-County.</p>
+        <form class="modal-field" id="modal-form">
+          <div>
+            <label class="modal-label">Full Name</label>
+            <input class="modal-input" type="text" name="full_name" placeholder="Your full name" required>
+          </div>
+          <div>
+            <label class="modal-label">Email Address</label>
+            <input class="modal-input" type="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div>
+            <label class="modal-label">Organisation (optional)</label>
+            <input class="modal-input" type="text" name="organisation" placeholder="Where are you from?">
+          </div>
+          <div>
+            <label class="modal-label">Message</label>
+            <textarea class="modal-textarea" name="message" rows="4" placeholder="Tell us more..."></textarea>
+          </div>
+          <button type="submit" class="modal-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= NAV ================= -->
+    <header class="nav">
+      <a href="index.html" class="nav-brand">
+        <span class="nav-dot">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1C4 1 2 3 2 5.5c0 3.5 5 7.5 5 7.5s5-4 5-7.5C12 3 10 1 7 1z" fill="#f5f0e8" />
+          </svg>
+        </span>
+        <span class="nav-mark">TIP</span>
+        <span class="nav-sub">The Incubator Platform</span>
+      </a>
+      <nav class="nav-links">
+        <div class="nav-links-list" style="display:flex;gap:2.5rem;align-items:center;">
+          <button class="nav-link" data-scroll="about">About</button>
+          <button class="nav-link" data-scroll="projects">Projects</button>
+          <button class="nav-link" data-scroll="gallery">Gallery</button>
+          <button class="nav-link" data-scroll="partners">Partners</button>
+          <button class="nav-link" data-scroll="join">Join</button>
+          <button class="nav-link" data-scroll="contact">Contact</button>
+        </div>
+        <a href="constitution.html" class="btn-const-outline">Constitution</a>
+        <button class="btn-nav-join" data-modal="join">Join Now</button>
+      </nav>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section id="about" class="hero">
+      <div class="hero-left">
+        <div>
+          <div class="hero-tags">
+            <span class="tag tag-ochre">Youth-Led</span>
+            <span class="tag tag-forest-light">Langata, Nairobi</span>
+            <span class="tag tag-mist">Est. 2025</span>
+          </div>
+          <h1 class="hero-title">
+            Building a<br>
+            <em>Greener</em><br>
+            Langata
+          </h1>
+          <p class="hero-body">
+            The Incubator Platform is a community-based organization empowering youth to lead climate action, build
+            green enterprises, and create lasting change in their neighbourhoods.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-forest" data-modal="join">Join the Cause</button>
+            <button class="btn-outline" data-scroll="projects">See Our Projects</button>
+          </div>
+        </div>
+        <div class="hero-stats" id="hero-stats">
+          <div>
+            <p class="hero-stat-num">200+</p>
+            <p class="hero-stat-label">Youth Reached</p>
+          </div>
+          <div>
+            <p class="hero-stat-num">4</p>
+            <p class="hero-stat-label">Active Projects</p>
+          </div>
+          <div>
+            <p class="hero-stat-num">10K</p>
+            <p class="hero-stat-label">Trees Targeted</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-photo-main">
+          <img src="https://images.unsplash.com/photo-1515657834497-26509e295154?w=800&h=600&fit=crop&auto=format"
+            alt="Community members gathered in celebration and solidarity">
+        </div>
+        <div class="hero-photo-row">
+          <div>
+            <img src="https://images.unsplash.com/photo-1547496614-99b29879c916?w=400&h=300&fit=crop&auto=format"
+              alt="Children learning in a community space">
+          </div>
+          <div>
+            <img src="https://images.unsplash.com/photo-1535090467336-9501f96eef89?w=400&h=300&fit=crop&auto=format"
+              alt="Hands tending to earth in a community garden">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= IMPACT BAR ================= -->
+    <div class="impact-bar">
+      <p class="impact-quote">"Every tree planted is a vote for the future."</p>
+      <div class="impact-stats" id="impact-stats">
+        <div class="impact-stat">
+          <p class="impact-stat-value">47</p>
+          <p class="impact-stat-label">Members</p>
+        </div>
+        <div class="impact-stat">
+          <p class="impact-stat-value">3</p>
+          <p class="impact-stat-label">Projects Completed</p>
+        </div>
+        <div class="impact-stat">
+          <p class="impact-stat-value">6</p>
+          <p class="impact-stat-label">Partner Orgs</p>
+        </div>
+        <div class="impact-stat">
+          <p class="impact-stat-value">Langata</p>
+          <p class="impact-stat-label">Sub-County</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects" class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">On The Ground</p>
+          <h2 class="section-title">Our Projects</h2>
+        </div>
+        <div class="section-actions">
+          <button class="btn-ochre" data-modal="sponsor">Sponsor a Project</button>
+          <button class="btn-outline-sm" data-modal="invite">Invite Us</button>
+        </div>
+      </div>
+
+      <div class="projects-grid" id="projects-grid">
+        <article class="project-card">
+          <div class="project-photo"><img
+              src="https://images.unsplash.com/photo-1548522904-e5ab6cf5e09b?w=700&h=480&fit=crop&auto=format"
+              alt="Community members gathering on a green field for a planting day"></div>
+          <div class="project-content">
+            <div class="project-tags-row">
+              <span class="tag tag-ochre">Environment</span>
+              <span class="tag tag-forest-light">Active</span>
+            </div>
+            <h3 class="project-title">Green Langata Tree Drive</h3>
+            <p class="project-desc">Planting 10,000 indigenous trees across Langata Sub-County parks, schools, and
+              riparian zones by end of 2025.</p>
+            <div class="project-meta-row">
+              <div>
+                <p class="project-goal">Goal: KES 450,000</p>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width:62%"></div>
+                </div>
+                <p class="project-pct">62% funded</p>
+              </div>
+              <button class="btn-fund" data-modal="sponsor">Fund This</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-photo"><img
+              src="https://images.unsplash.com/photo-1630509866818-4c7be20bb76d?w=700&h=480&fit=crop&auto=format"
+              alt="Youth participants seated in a workshop session outdoors"></div>
+          <div class="project-content">
+            <div class="project-tags-row">
+              <span class="tag tag-ochre">Youth</span>
+              <span class="tag tag-ochre">Fundraising</span>
+            </div>
+            <h3 class="project-title">Climate Skills Bootcamp</h3>
+            <p class="project-desc">A 12-week intensive mentorship and skills program equipping 200 youth with green
+              entrepreneurship and climate literacy.</p>
+            <div class="project-meta-row">
+              <div>
+                <p class="project-goal">Goal: KES 280,000</p>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width:34%"></div>
+                </div>
+                <p class="project-pct">34% funded</p>
+              </div>
+              <button class="btn-fund" data-modal="sponsor">Fund This</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-photo"><img
+              src="https://images.unsplash.com/photo-1616680214084-22670de1bc82?w=700&h=480&fit=crop&auto=format"
+              alt="Volunteers working together on a community environmental project"></div>
+          <div class="project-content">
+            <div class="project-tags-row">
+              <span class="tag tag-ochre">Health</span>
+              <span class="tag tag-ochre">Fundraising</span>
+            </div>
+            <h3 class="project-title">Clean Water for Schools</h3>
+            <p class="project-desc">Installing rainwater harvesting systems and water filtration units in 6 primary
+              schools across Langata.</p>
+            <div class="project-meta-row">
+              <div>
+                <p class="project-goal">Goal: KES 360,000</p>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width:18%"></div>
+                </div>
+                <p class="project-pct">18% funded</p>
+              </div>
+              <button class="btn-fund" data-modal="sponsor">Fund This</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-photo"><img
+              src="https://images.unsplash.com/photo-1753881110611-00755160afd2?w=700&h=480&fit=crop&auto=format"
+              alt="Solar panels mounted on a rural building"></div>
+          <div class="project-content">
+            <div class="project-tags-row">
+              <span class="tag tag-ochre">Economy</span>
+              <span class="tag tag-mist">Seeking Partners</span>
+            </div>
+            <h3 class="project-title">Solar Micro-Enterprise Hub</h3>
+            <p class="project-desc">Establishing a solar-powered community workshop where members manufacture and sell
+              eco-friendly products.</p>
+            <div class="project-meta-row">
+              <div>
+                <p class="project-goal">Goal: KES 620,000</p>
+                <div class="progress-track">
+                  <div class="progress-fill" style="width:8%"></div>
+                </div>
+                <p class="project-pct">8% funded</p>
+              </div>
+              <button class="btn-fund" data-modal="sponsor">Fund This</button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="invite-strip">
+        <div>
+          <h3>Have a project that needs us?</h3>
+          <p>TIP brings organised youth energy, local knowledge, and logistical capacity to partner-led initiatives.</p>
+        </div>
+        <button class="btn-ink" data-modal="invite">Invite TIP to Your Project →</button>
+      </div>
+    </section>
+
+    <!-- ================= GALLERY ================= -->
+    <section id="gallery" class="section">
+      <div style="margin-bottom:3rem;">
+        <p class="eyebrow">From the Field</p>
+        <h2 class="section-title">Gallery</h2>
+      </div>
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="gallery-cell tall"><img
+            src="https://images.unsplash.com/photo-1515657834497-26509e295154?w=600&h=700&fit=crop&auto=format"
+            alt="Community celebration at a cultural gathering"></div>
+        <div class="gallery-cell"><img
+            src="https://images.unsplash.com/photo-1547496614-99b29879c916?w=600&h=380&fit=crop&auto=format"
+            alt="Children learning inside a community education space"></div>
+        <div class="gallery-cell"><img
+            src="https://images.unsplash.com/photo-1535090467336-9501f96eef89?w=600&h=380&fit=crop&auto=format"
+            alt="Hands working the earth in a community garden"></div>
+        <div class="gallery-cell"><img
+            src="https://images.unsplash.com/photo-1547496614-d145e2fa88ed?w=600&h=380&fit=crop&auto=format"
+            alt="Three smiling boys from the Langata community"></div>
+        <div class="gallery-cell"><img
+            src="https://images.unsplash.com/photo-1617953141905-b27fb1f17d88?w=600&h=480&fit=crop&auto=format"
+            alt="Volunteers on a beach clean-up drive"></div>
+        <div class="gallery-cell"><img
+            src="https://images.unsplash.com/photo-1615992955236-ec38cbfc6fe2?w=600&h=480&fit=crop&auto=format"
+            alt="A line of flourishing green plants along a roadside"></div>
+      </div>
+    </section>
+
+    <!-- ================= PARTNERS ================= -->
+    <section id="partners" class="section partners-section">
+      <div class="partners-layout">
+        <div class="partners-left">
+          <p class="eyebrow">Collaboration</p>
+          <h2>Our Partners &amp;<br><em>Allies</em></h2>
+          <p>We actively seek mission-aligned partners — government bodies, NGOs, academic institutions, and corporates
+            — to amplify community impact.</p>
+          <button class="btn-forest" data-modal="partner">Become a Partner</button>
+        </div>
+        <div>
+          <div class="partners-tiles" id="partners-tiles">
+            <div class="partner-tile"
+              style="border-right:1px solid var(--color-rule);border-bottom:1px solid var(--color-rule);">
+              <p class="partner-type">Institutional</p>
+              <p class="partner-name">Nairobi County Government</p>
+            </div>
+            <div class="partner-tile"
+              style="border-right:1px solid var(--color-rule);border-bottom:1px solid var(--color-rule);">
+              <p class="partner-type">Government</p>
+              <p class="partner-name">Kenya Forest Service</p>
+            </div>
+            <div class="partner-tile" style="border-bottom:1px solid var(--color-rule);">
+              <p class="partner-type">International</p>
+              <p class="partner-name">UN Environment Programme</p>
+            </div>
+            <div class="partner-tile" style="border-right:1px solid var(--color-rule);">
+              <p class="partner-type">Finance</p>
+              <p class="partner-name">Local Community Saccos</p>
+            </div>
+            <div class="partner-tile" style="border-right:1px solid var(--color-rule);">
+              <p class="partner-type">Academic</p>
+              <p class="partner-name">Strathmore University</p>
+            </div>
+            <div class="partner-tile">
+              <p class="partner-type">Corporate</p>
+              <p class="partner-name">Safaricom Foundation</p>
+            </div>
+          </div>
+          <div class="partners-more">
+            <div class="partners-more-icon">+</div>
+            <p>Your organisation could be listed here. <button class="link-btn" data-modal="partner">Reach out to
+                partner with TIP.</button></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= JOIN / MEMBERSHIP ================= -->
+    <section id="join" class="section">
+      <div class="membership-head">
+        <p class="eyebrow" style="text-align:center;">Be Part of It</p>
+        <h2>Join the Cause</h2>
+        <p>Whether you want to volunteer, contribute funding, or forge a formal partnership, there is a meaningful place
+          for you in TIP.</p>
+      </div>
+
+      <div class="tiers" id="tiers">
+        <div class="tier">
+          <div class="tier-body">
+            <p class="tier-period">01 — one-time registration</p>
+            <h3 class="tier-name">Ordinary Member</h3>
+            <p class="tier-fee">KES 1,000</p>
+            <ul class="tier-perks">
+              <li>Access to all workshops &amp; trainings</li>
+              <li>Priority for project roles</li>
+              <li>Networking &amp; job opportunities</li>
+              <li>Dividends from income projects</li>
+              <li>Bereavement &amp; celebration support</li>
+            </ul>
+          </div>
+          <button class="btn-tier forest" data-modal="join">Join as Member</button>
+        </div>
+
+        <div class="tier highlight">
+          <div class="tier-body">
+            <p class="tier-period">02 — annual partnership</p>
+            <h3 class="tier-name">Partner Organisation</h3>
+            <p class="tier-fee">Flexible MOU</p>
+            <ul class="tier-perks">
+              <li>Co-design community projects</li>
+              <li>Co-branding on all TIP materials</li>
+              <li>Access to our youth talent pool</li>
+              <li>Joint grant applications</li>
+              <li>Quarterly impact reporting</li>
+            </ul>
+          </div>
+          <button class="btn-tier ochre" data-modal="partner">Become a Partner</button>
+        </div>
+
+        <div class="tier">
+          <div class="tier-body">
+            <p class="tier-period">03 — per project</p>
+            <h3 class="tier-name">Project Sponsor</h3>
+            <p class="tier-fee">From KES 50,000</p>
+            <ul class="tier-perks">
+              <li>Full project naming rights</li>
+              <li>Dedicated impact report</li>
+              <li>Field visit invitation</li>
+              <li>Social media recognition</li>
+              <li>Certificate of contribution</li>
+            </ul>
+          </div>
+          <button class="btn-tier forest" data-modal="sponsor">Sponsor a Project</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="contact-section">
+      <div class="contact-photo">
+        <img src="https://images.unsplash.com/photo-1603703182693-51a19941fa59?w=900&h=700&fit=crop&auto=format"
+          alt="Community members walking together in a shared purpose">
+        <div class="contact-photo-overlay"></div>
+        <div class="contact-photo-text">
+          <p class="contact-photo-label">Location</p>
+          <p class="contact-photo-loc">Langata Sub-County<br><em>Nairobi, Kenya</em></p>
+        </div>
+      </div>
+      <div class="contact-right">
+        <p class="eyebrow">Get Involved</p>
+        <h2>Ready to make<br><em>something happen?</em></h2>
+        <p>Whether you want to join as a member, partner your organisation, sponsor a project, or invite TIP to
+          participate in your initiative — we want to hear from you.</p>
+        <div class="contact-actions">
+          <button class="contact-action" data-modal="join"><span>Join as a Member</span><span
+              class="arrow">→</span></button>
+          <button class="contact-action" data-modal="partner"><span>Become a Partner</span><span
+              class="arrow">→</span></button>
+          <button class="contact-action" data-modal="sponsor"><span>Sponsor a Project</span><span
+              class="arrow">→</span></button>
+          <button class="contact-action" data-modal="invite"><span>Invite Us to Your Project</span><span
+              class="arrow">→</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+      <div class="footer-brand">
+        <span class="footer-dot"><svg width="11" height="11" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1C4 1 2 3 2 5.5c0 3.5 5 7.5 5 7.5s5-4 5-7.5C12 3 10 1 7 1z" fill="#5a8c30" />
+          </svg></span>
+        <div>
+          <p class="footer-name">The Incubator Platform</p>
+          <p class="footer-loc">Langata Sub-County · Nairobi, Kenya · Est. 2025</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <button class="footer-link" data-scroll="about">About</button>
+        <button class="footer-link" data-scroll="projects">Projects</button>
+        <button class="footer-link" data-scroll="gallery">Gallery</button>
+        <button class="footer-link" data-scroll="partners">Partners</button>
+        <button class="footer-link" data-scroll="join">Join</button>
+        <button class="footer-link" data-scroll="contact">Contact</button>
+        <a href="constitution.html" class="footer-link const">Constitution ↗</a>
+        <a href="https://wa.me/0706815379" class="footer-link privacy">Developed by <b>Willy Wanjau</b> ↗</a>
+
+      </div>
+      <p class="footer-tag"> Non-partisan · Non-sectarian · Non-discriminatory</p>
+      <p class="footer-tag"></p>
+    </footer>
+
+  </div>
+  <script src=" app.js"></script>
+</body>
+
+</html>
