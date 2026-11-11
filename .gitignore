@@ -3,3 +3,8 @@ data/
 .env
 *.log
 .DS_Store
+
+# React build output and local caches
+frontend/dist/
+frontend/.npm-cache/
+

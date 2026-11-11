@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Work+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Work Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  --color-parchment: #f5f0e8;
+  --color-parchment-dark: #ede5d4;
+  --color-ink: #1a1812;
+  --color-forest: #2d5016;
+  --color-forest-mid: #3d6b1f;
+  --color-forest-light: #5a8c30;
+  --color-ochre: #c47c1a;
+  --color-ochre-light: #e8a840;
+  --color-mist: #8a8070;
+  --color-rule: #c8bfa8;
+}
+
+body {
+  background-color: var(--color-parchment);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}

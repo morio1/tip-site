@@ -2,65 +2,80 @@
 
 A community website for youth-led climate action, green enterprise, and opportunity in Langata, Nairobi.
 
-![TIP homepage](docs/previews/home-desktop.png)
+This repository includes two website implementations:
 
-## What is included
+| Location | What it contains |
+| --- | --- |
+| `public/` and `server/` | The existing website, Express API, SQLite database, and admin dashboard |
+| `frontend/` | The React website exported from Figma, including the homepage and interactive constitution |
 
-- A homepage with projects, impact highlights, gallery, partners, and membership tiers.
-- An interactive constitution page with expandable articles.
-- Join, sponsor, partner, and invitation dialogs.
-- Responsive layouts built with React, TypeScript, Vite, and Tailwind CSS.
+The React export is included as a separate application. It is not yet connected to the Express API, and starting the backend still serves the existing `public/` website.
 
-## Run locally
+## Run the existing website and backend
 
-Use Node.js 22.12 or newer (Node.js 24 also works with Vite 8).
-
-Open this folder in VS Code, then run:
+Install Node.js 22, open the repository folder in VS Code, and run:
 
 ```sh
+npm install
+```
+
+Copy `.env.example` to `.env` and replace `ADMIN_TOKEN` with a long random value. In PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Then run:
+
+```sh
+npm run seed
+npm start
+```
+
+Open **http://localhost:3000** for the website or **http://localhost:3000/admin.html** for the admin dashboard. The dashboard uses the token configured in `.env`.
+
+SQLite stores data in `data/tip.db` by default. Keep that file on persistent storage when hosting the backend. Do not commit `.env` or database files.
+
+## Run the Figma React website
+
+Use Node.js 22.12 or newer, then open a second terminal:
+
+```sh
+cd frontend
 npm install
 npm run dev
 ```
 
-Open the address printed in the terminal. The supplied configuration uses port **8443** by default.
+Open the local address printed by Vite (port 8443 by default).
 
-The project also includes a pnpm lockfile. If you already use pnpm, use `pnpm install --frozen-lockfile` and `pnpm dev` instead of npm.
-
-## Build for publishing
+To build and preview this version:
 
 ```sh
 npm run build
 npm run preview
 ```
 
-The production website is generated in `dist/`. Publish that folder using a static website host. For GitHub Pages under a repository path, configure Vite's base path and add a deployment workflow before publishing.
+The output is `frontend/dist/`. See [the frontend README](frontend/README.md) for its features, editing guide, and limitations.
 
-## Current functionality
+The React contact dialogs currently do not send or save enquiries. Project content, statistics, partners, and fees are defined in the source and should be reviewed before publishing.
 
-This export is a frontend website. The homepage and constitution navigation work in the browser, and content is defined in the source files.
+## Repository guide
 
-The contact dialogs currently display inputs and a Send Message button, but do not submit or save messages. Connect a backend or form service before collecting enquiries.
-
-This ZIP does **not** include an Express server, SQLite database, CRUD API, admin dashboard, or administrator token. Instructions referring to `server/`, `public/admin.html`, `.env.example`, `npm start`, or `npm run seed` describe a different project and do not apply to this export.
-
-Review the sample project statistics, funding figures, partner names, fees, and contact details before publishing. Images and web fonts require an internet connection.
-
-## Where to edit
-
-| File | Purpose |
+| Location | Purpose |
 | --- | --- |
-| `src/App.tsx` | Homepage, project data, partners, membership tiers, and dialogs |
-| `src/ConstitutionPage.tsx` | Constitution layout and articles |
-| `src/index.css` | Fonts, colours, and global styling |
-| `index.html` | HTML entry point |
-| `vite.config.ts` | Build and development configuration |
-| `docs/previews/` | Homepage, constitution, and social preview images |
-| `.figma/` | Figma export configuration used by the Vite setup |
+| `public/` | Existing website and admin dashboard |
+| `server/server.js` | Express application |
+| `server/routes/` | Content and enquiry API routes |
+| `server/db.js` | SQLite schema and connection |
+| `server/seed.js` | Starter content |
+| `frontend/src/App.tsx` | New Figma homepage and dialogs |
+| `frontend/src/ConstitutionPage.tsx` | New constitution page |
+| `frontend/docs/previews/` | Website preview images |
+| `api-tests.http` | Example API requests |
+| `Dockerfile` and `docker-compose.yml` | Existing backend container setup |
 
-Keep `.figma/` with the project: the current Vite configuration imports its site configuration.
+## Publishing
 
-## GitHub
+The backend requires a Node.js host with persistent storage for SQLite. GitHub Pages can host the React build only; it cannot run this Express server or SQLite database.
 
-Upload the source files, including `src/`, `docs/`, `.figma/`, and the root configuration files. Exclude `node_modules/`, `dist/`, and private environment files.
-
-For an existing repository, clone it first, copy these files into the clone, review the changes, commit, and push. Publishing code to GitHub does not by itself publish a live website.
+Uploading this repository does not automatically deploy either website. Connecting the React frontend to the backend and configuring its deployment are separate steps.
