@@ -1,5 +1,7 @@
 # The Incubator Platform (TIP)
 
+**[Open the live website](https://morio1.github.io/tip-site/)**
+
 A community website for youth-led climate action, green enterprise, and opportunity in Langata, Nairobi.
 
 This repository includes two website implementations:
@@ -78,4 +80,4 @@ The React contact dialogs currently do not send or save enquiries. Project conte
 
 The backend requires a Node.js host with persistent storage for SQLite. GitHub Pages can host the React build only; it cannot run this Express server or SQLite database.
 
-Uploading this repository does not automatically deploy either website. Connecting the React frontend to the backend and configuring its deployment are separate steps.
+The GitHub Pages workflow publishes the React website automatically when changes are pushed to `main`. The Express backend is preserved but is not hosted by GitHub Pages. The React contact dialogs are not connected to it.
